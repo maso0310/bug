@@ -147,7 +147,7 @@ def handle_message(event):
 
             url = 'http://pythonscraping.com/pages/files/processing2.php'
 
-            files = {'uploadFile':open('.'+path,'rb')}
+            files = {'uploadFile':open(path,'rb')}
 
             print(files)
 
