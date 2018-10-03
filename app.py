@@ -152,14 +152,14 @@ def handle_message(event):
                 'description': 'dist_path'
             }
             path = os.path.join('static', 'tmp', dist_name)
+            print(path)
             client.upload_from_path(path, config=config, anon=False)
-
-            print('Upload Image')
 
             url = 'http://pythonscraping.com/pages/files/processing2.php'
             print(url)
-            print(path)
+
             files = {'uploadFile':open(path,'rb')}
+            print(files)
             '''
             headers = {
                 'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
