@@ -135,15 +135,8 @@ def handle_message(event):
             dist_path = tempfile_path + '.' + ext
             dist_name = os.path.basename(dist_path)
             os.rename(tempfile_path, dist_path)
-            cwd = os.getcwd()
-            print(message_content)
-            print(tempfile_path)
-            print(dist_path)#這個是完整的path
-            print(dist_name)#檔案名稱jpg-XXXX.jpg
-            print(cwd)
 
         try:
-            print('Upload on Imgur')
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
             config = {
                 'album': 'UthLp77',
