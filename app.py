@@ -138,7 +138,7 @@ def handle_message(event):
         path = os.path.join('static', 'tmp', dist_name)
         url = 'http://pythonscraping.com/pages/files/processing2.php'
 
-        files = {'uploadFile':open('C:/bug/static/tmp/RIMG0424.jpg','rb')}
+        files = {'uploadFile':open(path,'rb')}
 
         print(files)
 
@@ -158,7 +158,7 @@ def handle_message(event):
             os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text='上傳成功'))
+                TextSendMessage(text=outcome))
         except:
             line_bot_api.reply_message(
                 event.reply_token,
