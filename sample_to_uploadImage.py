@@ -12,8 +12,6 @@ headers = {
 
 res_post = requests.post(url,files=files)
 soup_post = BeautifulSoup(res_post.text,'html.parser')
-#outcome = soup_post.find('p')
+outcome = res_post.text[8:20]
 print(res_post.text[8:20])
 print(res_post)
-outcome = res_post.text[8:20]
-print(outcome)
