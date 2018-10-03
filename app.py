@@ -144,8 +144,6 @@ def handle_message(event):
                 'description': 'Cute kitten being cute on '
             }
             path = os.path.join('static', 'tmp', dist_name)
-
-
             client.upload_from_path(path, config=config, anon=False)
 
             os.remove(path)
