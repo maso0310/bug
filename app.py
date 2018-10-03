@@ -2,6 +2,7 @@ import apiai
 import json
 import requests
 import random
+from bs4 import BeautifulSoup
 from flask import Flask, request, abort
 from imgurpython import ImgurClient
 from linebot import (
@@ -135,6 +136,16 @@ def handle_message(event):
 
         os.rename(tempfile_path, dist_path)
         path = os.path.join('static', 'tmp', dist_name)
+        url = 'http://pythonscraping.com/pages/files/processing2.php'
+
+        files = {'uploadFile':open('C:/bug/static/tmp/RIMG0424.jpg','rb')}
+
+        print(files)
+
+        res_post = requests.post(url,files=files)
+        soup_post = BeautifulSoup(res_post.text,'html.parser')
+        outcome = res_post.text[8:20]
+
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
             config = {
