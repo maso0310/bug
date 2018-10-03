@@ -59,7 +59,7 @@ def handle_message(event):
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
             config = {
-                'album': 'cXZXHlO',
+                'album': 'UthLp77',
                 'name': 'Catastrophe!',
                 'title': 'Catastrophe!',
                 'description': 'Cute kitten being cute on '
