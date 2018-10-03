@@ -155,6 +155,10 @@ def handle_message(event):
         soup_post = BeautifulSoup(res_post.text,'html.parser')
         outcome = soup_post.find('p')
         bug_number = outcome.text
+        bug_number_message ={
+            'type':'text',
+            'text':'影像判識結果，褐飛蝨數量為：'+bug_number
+        }
 
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)

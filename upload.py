@@ -9,7 +9,7 @@ csrf_value = soup_get.find('input')['value']
 print('csrftoken='+csrf_value)
 
 data = {'csrfmiddlewaretoken':csrf_value}
-files = {'myfile':open('RIMG0424.jpg','rb')}
+files = {'myfile':open('397892.jpg','rb')}
 headers = {
     'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
     'Cookie':'csrftoken='+csrf_value,
@@ -20,11 +20,4 @@ res_post = requests.post(url,files=files,headers=headers,data=data)
 soup_post = BeautifulSoup(res_post.text,'html.parser')
 outcome = soup_post.find('p')
 bug_number = outcome.text
-'''
-print(soup_post)
-print(outcome)
-print(res_post.status_code)
-#print('照片上褐飛蝨族群數量='+outcome)
-'''
-
 print(bug_number)
