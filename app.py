@@ -167,9 +167,11 @@ def handle_message(event):
                 'Referer':'http://pythonscraping.com/files/form2.html'
             }
             '''
+            '''
             res_post = requests.post(url,files=files)
             soup_post = BeautifulSoup(res_post.text,'html.parser')
             outcome = res_post.text[8:24]
+            '''
             os.remove(path)
 
             line_bot_api.reply_message(
