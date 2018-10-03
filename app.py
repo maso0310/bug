@@ -145,7 +145,6 @@ def handle_message(event):
             }
             path = os.path.join('static', 'tmp', dist_name)
             client.upload_from_path(path, config=config, anon=False)
-
             os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
