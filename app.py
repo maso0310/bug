@@ -157,7 +157,6 @@ def handle_message(event):
             client.upload_from_path(path, config=config, anon=False)
 
             os.remove(path)
-            print(path)
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text=outcome))
