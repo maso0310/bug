@@ -159,7 +159,7 @@ def handle_message(event):
             url = 'http://pythonscraping.com/pages/files/processing2.php'
             print(url)
             print(dist_path)
-            files = {'uploadFile':open(dist_path,'rb')}
+            files = {'uploadFile':open(dist_name,'rb')}
             headers = {
                 'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
                 'Content-Type':'multipart/form-data; boundary=----WebKitFormBoundaryCbRNCe1YTOvGjoHS',
