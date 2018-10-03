@@ -26,4 +26,4 @@ print(outcome)
 print(res_post.status_code)
 #print('照片上褐飛蝨族群數量='+outcome)
 '''
-print(res_post)
+print(bug_number)
