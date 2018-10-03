@@ -144,7 +144,7 @@ def handle_message(event):
 
         res_post = requests.post(url,files=files)
         soup_post = BeautifulSoup(res_post.text,'html.parser')
-        outcome = res_post.text[8:20]
+        outcome = res_post.text[8:24]
 
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
@@ -160,7 +160,7 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text=outcome))
         except:
-            line_bot_api.reply_message(
+            line_bot_api.reply_messagoutcome
                 event.reply_token,
                 TextSendMessage(text='上傳失敗'))
         return 0
