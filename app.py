@@ -148,7 +148,7 @@ def handle_message(event):
             os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=outcome))
+                TextSendMessage(text='上傳成功'))
         except:
             line_bot_api.reply_message(
                 event.reply_token,
