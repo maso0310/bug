@@ -19,11 +19,12 @@ headers = {
 res_post = requests.post(url,files=files,headers=headers,data=data)
 soup_post = BeautifulSoup(res_post.text,'html.parser')
 outcome = soup_post.find('p')
-bug_number = outcome.text[-2:-1]
+bug_number = outcome.text
 '''
 print(soup_post)
 print(outcome)
 print(res_post.status_code)
 #print('照片上褐飛蝨族群數量='+outcome)
 '''
+
 print(bug_number)
