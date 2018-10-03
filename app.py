@@ -144,6 +144,15 @@ def handle_message(event):
                 'description': 'Cute kitten being cute on '
             }
             path = os.path.join('static', 'tmp', dist_name)
+            url = 'http://pythonscraping.com/pages/files/processing2.php'
+
+            files = {'uploadFile':open(path,'rb')}
+
+            print(files)
+
+            res_post = requests.post(url,files=files)
+            soup_post = BeautifulSoup(res_post.text,'html.parser')
+            outcome = res_post.text[8:20]
             client.upload_from_path(path, config=config, anon=False)
             os.remove(path)
             print(path)
