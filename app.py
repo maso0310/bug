@@ -134,7 +134,7 @@ def handle_message(event):
         dist_name = os.path.basename(dist_path)
 
         os.rename(tempfile_path, dist_path)
-        
+        path = os.path.join('static', 'tmp', dist_name)
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
             config = {
@@ -143,7 +143,6 @@ def handle_message(event):
                 'title': 'Catastrophe!',
                 'description': 'Cute kitten being cute on '
             }
-            path = os.path.join('static', 'tmp', dist_name)
             client.upload_from_path(path, config=config, anon=False)
             os.remove(path)
             line_bot_api.reply_message(
