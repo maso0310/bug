@@ -136,15 +136,29 @@ def handle_message(event):
 
         os.rename(tempfile_path, dist_path)
         path = os.path.join('static', 'tmp', dist_name)
-        url = 'http://pythonscraping.com/pages/files/processing2.php'
+        url = 'http://140.113.238.34:8000/'
+        res_get = requests.get(url)
+        soup_get = BeautifulSoup(res_get.text,'html.parser')
+        csrf_value = soup_get.find('input')['value']
 
-        files = {'uploadFile':open(path,'rb')}
+        print('csrftoken='+csrf_value)
 
-        print(files)
+        data = {'csrfmiddlewaretoken':csrf_value}
+        files = {'myfile':open(path,'rb')}
+        headers = {
+            'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+            'Cookie':'csrftoken='+csrf_value,
+            'Referer':'http://140.113.238.34:8000/'
+        }
 
-        res_post = requests.post(url,files=files)
+        res_post = requests.post(url,files=files,headers=headers,data=data)
         soup_post = BeautifulSoup(res_post.text,'html.parser')
-        outcome = res_post.text[8:20]
+        outcome = soup_post.find('p')
+        bug_number = outcome.text
+        bug_number_message ={
+            'type':'text',
+            'text':'影像判識結果，褐飛蝨數量為：'+bug_number
+        }
 
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
@@ -158,7 +172,7 @@ def handle_message(event):
             os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=outcome))
+                TextSendMessage(text=bug_number_message))
         except:
             line_bot_api.reply_messag(
                 event.reply_token,
