@@ -155,23 +155,19 @@ def handle_message(event):
             client.upload_from_path(path, config=config, anon=False)
 
             print('Upload Image')
-            url = 'http://140.113.238.34:8000/'
-            files = {'myfile':open(dist_path,'rb')}
+
+            url = 'http://pythonscraping.com/pages/files/processing2.php'
+
+            files = {'uploadFile':open(dist_path,'rb')}
             headers = {
-                'Referer':'http://140.113.238.34:8000/',
                 'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
-                'Cookie':'csrftoken=5ppAPfeyrYrRZFLkYjjZXY5NwZ0LRXrL',
-                'Host':'140.113.238.34:8000',
-                'Origin':'http://140.113.238.34:8000',
-                'Content-Type':'multipart/form-data',
-                'Accept':'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
-                'csrfmiddlewaretoken':'5ppAPfeyrYrRZFLkYjjZXY5NwZ0LRXrL'
+                'Content-Type':'multipart/form-data; boundary=----WebKitFormBoundaryCbRNCe1YTOvGjoHS',
+                'Referer':'http://pythonscraping.com/files/form2.html'
             }
-            post = requests.post(url,files=files ,headers=headers)
-            soup_post = BeautifulSoup(post.text,'html.parser')
-            outcome = soup_post.find('p')
-            print(error)
-            print(post.text)
+
+            res_post = requests.post(url,files=files)
+            soup_post = BeautifulSoup(res_post.text,'html.parser')
+            outcome = res_post.text[8:20]
             os.remove(path)
 
             line_bot_api.reply_message(
