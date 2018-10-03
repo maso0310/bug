@@ -155,23 +155,6 @@ def handle_message(event):
             print(path)
             client.upload_from_path(path, config=config, anon=False)
 
-            url = 'http://pythonscraping.com/pages/files/processing2.php'
-            print(url)
-
-            files = {'uploadFile':open(path,'rb')}
-            print(files)
-            '''
-            headers = {
-                'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
-                'Content-Type':'multipart/form-data; boundary=----WebKitFormBoundaryCbRNCe1YTOvGjoHS',
-                'Referer':'http://pythonscraping.com/files/form2.html'
-            }
-            '''
-            '''
-            res_post = requests.post(url,files=files)
-            soup_post = BeautifulSoup(res_post.text,'html.parser')
-            outcome = res_post.text[8:24]
-            '''
             os.remove(path)
 
             line_bot_api.reply_message(
