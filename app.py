@@ -136,14 +136,12 @@ def handle_message(event):
 
         os.rename(tempfile_path, dist_path)
         path = os.path.join('static', 'tmp', dist_name)
-
+        print(path)
         url = 'http://140.113.238.34:8000/'
 
         for i in range (10):
             try:
                 res_get = requests.get(url)
-                
-            
             except Excetion , e:
                 if i>=9:
                     do_some_log()
@@ -153,9 +151,11 @@ def handle_message(event):
                 time.sleep(0.1)
                 break
 
-        print('csrftoken='+csrf_value)
+
         soup_get = BeautifulSoup(res_get.text,'html.parser')
         csrf_value = soup_get.find('input')['value']
+        print('csrftoken='+csrf_value)
+
         data = {'csrfmiddlewaretoken':csrf_value}
         files = {'myfile':open('RIMG0424.JPG','rb')}
         headers = {
