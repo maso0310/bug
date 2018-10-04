@@ -2,6 +2,7 @@ import apiai
 import json
 import requests
 import random
+import time
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
 from imgurpython import ImgurClient
