@@ -156,6 +156,8 @@ def handle_message(event):
         outcome = soup_post.find('p')
         bug_number = outcome.text
         a = '試試看回傳的文字'
+        
+        print(a)
 
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
@@ -169,7 +171,7 @@ def handle_message(event):
             os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=a))
+                TextSendMessage(text=bug_number))
         except:
             line_bot_api.reply_messag(
                 event.reply_token,
