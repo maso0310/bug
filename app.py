@@ -170,7 +170,7 @@ def handle_message(event):
         bug_number = outcome.text
         a = '試試看回傳的文字'
             
-            print(a)
+        print(a)
 
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
