@@ -20,4 +20,4 @@ res_post = requests.post(url,files=files,headers=headers,data=data)
 soup_post = BeautifulSoup(res_post.text,'html.parser')
 outcome = soup_post.find('p')
 bug_number = outcome.text
-print(bug_number[8:9])
+print(bug_number)
