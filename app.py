@@ -152,7 +152,7 @@ def handle_message(event):
             'Referer':'http://140.113.238.34:8000/'
         }
 
-        res_get = requests.get(url,headers=headers,proxies={'http':random.choice(proxies)})
+        res_get = requests.get(url,headers=headers,proxies={'http':random.choice(proxies)},timeout=9999999)
         soup_get = BeautifulSoup(res_get.text,'html.parser')
         csrf_value = soup_get.find('input')['value']
         print('csrftoken='+csrf_value)
