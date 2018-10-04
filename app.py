@@ -140,19 +140,7 @@ def handle_message(event):
         print(path)
         url = 'http://140.113.238.34:8000/'
 
-        for i in range (10):
-            try:
-                res_get = requests.get(url)
-            except Exception as e:
-                if i>=9:
-                    do_some_log()
-                else:
-                    time.sleep(0.5)
-            else:
-                time.sleep(0.1)
-                break
-
-
+        res_get = requests.get(url)
         soup_get = BeautifulSoup(res_get.text,'html.parser')
         csrf_value = soup_get.find('input')['value']
         print('csrftoken='+csrf_value)
