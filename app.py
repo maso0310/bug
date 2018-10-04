@@ -144,7 +144,7 @@ def handle_message(event):
         print('csrftoken='+csrf_value)
 
         data = {'csrfmiddlewaretoken':csrf_value}
-        files = {'myfile':open('RIMG0424.JPG','rb')}
+        files = {'myfile':open(path,'rb')}
         headers = {
             'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
             'Cookie':'csrftoken='+csrf_value,
@@ -155,6 +155,7 @@ def handle_message(event):
         soup_post = BeautifulSoup(res_post.text,'html.parser')
         outcome = soup_post.find('p')
         bug_number = outcome.text
+        a = '試試看回傳的文字'
 
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
@@ -168,7 +169,7 @@ def handle_message(event):
             os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=bug_number))
+                TextSendMessage(text=a))
         except:
             line_bot_api.reply_messag(
                 event.reply_token,
