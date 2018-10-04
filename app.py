@@ -136,6 +136,7 @@ def handle_message(event):
 
         os.rename(tempfile_path, dist_path)
         path = os.path.join('static', 'tmp', dist_name)
+        
         url = 'http://140.113.238.34:8000/'
         res_get = requests.get(url)
         soup_get = BeautifulSoup(res_get.text,'html.parser')
@@ -144,7 +145,7 @@ def handle_message(event):
         print('csrftoken='+csrf_value)
 
         data = {'csrfmiddlewaretoken':csrf_value}
-        files = {'myfile':open(path,'rb')}
+        files = {'myfile':open('RIMG0424.JPG','rb')}
         headers = {
             'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
             'Cookie':'csrftoken='+csrf_value,
