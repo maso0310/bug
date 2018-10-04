@@ -142,7 +142,7 @@ def handle_message(event):
         for i in range (10):
             try:
                 res_get = requests.get(url)
-            except Exception, e:
+            except Exception as e:
                 if i>=9:
                     do_some_log()
                 else:
