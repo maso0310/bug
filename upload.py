@@ -21,4 +21,3 @@ soup_post = BeautifulSoup(res_post.text,'html.parser')
 outcome = soup_post.find('p')
 bug_number = outcome.text
 print(bug_number)
-print(TimeoutError)

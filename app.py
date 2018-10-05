@@ -122,7 +122,7 @@ def handle_text_message(event):                  # default
             TextSendMessage(text=msg))
 
 
-@handler.add(MessageEvent, message=(ImageMessage, TextMessage))
+@handler.add(MessageEvent, message=(ImageMessage))
 def handle_message(event):
     if isinstance(event.message, ImageMessage):
         ext = 'jpg'
