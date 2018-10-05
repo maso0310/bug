@@ -59,7 +59,7 @@ def is_alphabet(uchar):
     else:
         return "en"
 # ================= 客製區 End =================
-
+'''
 @handler.add(MessageEvent, message=(TextMessage))  # default
 def handle_text_message(event):                  # default
     msg = event.message.text # message from user
@@ -120,7 +120,7 @@ def handle_text_message(event):                  # default
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=msg))
-
+'''
 
 @handler.add(MessageEvent, message=(ImageMessage))
 def handle_message(event):
