@@ -6,8 +6,8 @@ handlers:
 - url: /
   script: home.app
 
-- url: /index\.html
-  script: home.app
+- url: /app\.py
+  script: app
 
 - url: /stylesheets
   static_dir: stylesheets
