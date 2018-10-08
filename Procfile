@@ -1,2 +1,2 @@
-web:    lein run -m myapp.web
-worker: lein run -m myapp.worker
+web:    lein run -m ricebug.web
+worker: lein run -m ricebug.worker
