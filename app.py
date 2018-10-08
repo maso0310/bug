@@ -1,11 +1,20 @@
-import apiai
+#基礎套件
 import json
-import requests
-import random
 import time
+
+#AI自然語言分析
+import apiai
+
+#網頁爬蟲
+import random
+import requests
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
+
+#IMGUR上傳
 from imgurpython import ImgurClient
+
+#LINEAPI
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -16,6 +25,10 @@ from linebot.models import *
 import tempfile, os
 from config import client_id, client_secret, album_id, access_token, refresh_token, line_channel_access_token, \
     line_channel_secret
+
+#後台任務排程
+from rq import Queue
+from worker import conn
 
 app = Flask(__name__)
 
@@ -46,7 +59,7 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-
+'''
 # ================= 客製區 Start =================
 def is_alphabet(uchar):
     if ('\u0041' <= uchar<='\u005a') or ('\u0061' <= uchar<='\u007a'):
@@ -59,7 +72,6 @@ def is_alphabet(uchar):
     else:
         return "en"
 # ================= 客製區 End =================
-'''
 @handler.add(MessageEvent, message=(TextMessage))  # default
 def handle_text_message(event):                  # default
     msg = event.message.text # message from user
