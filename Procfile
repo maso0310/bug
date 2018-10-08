@@ -1,2 +1,2 @@
-web:    lein run -m ricebug.web
-worker: lein run -m ricebug.worker
+web gunicorn app:app
+worker: python worker.py
