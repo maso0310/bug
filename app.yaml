@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 runtime: python27
 api_version: 1
 threadsafe: true
@@ -22,3 +23,6 @@ handlers:
 
 - url: /.*
   script: not_found.app
+=======
+runtime: python37
+>>>>>>> 5ee4c3656ca0070952dd9bdaeb8c080e2661944d
