@@ -169,7 +169,7 @@ def handle_message(event):
         print('csrftoken='+csrf_value)
 
         data = {'csrfmiddlewaretoken':csrf_value}
-        files = {'myfile':open('RIMG0424.JPG','rb')}
+        files = {'myfile':open(path,'rb')}
 
 
         res_post = requests.post(url,files=files,headers=headers,data=data)
