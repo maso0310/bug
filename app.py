@@ -160,9 +160,8 @@ def handle_message(event):
         from utils import count_words_at_url
 
         result = q.enqueue(count_words_at_url, 'http://heroku.com')
-        a = result.text
             
-        print(a)
+        print(result)
 
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
@@ -176,7 +175,7 @@ def handle_message(event):
             os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=a))
+                TextSendMessage(text=result))
         except:
             line_bot_api.reply_messag(
                 event.reply_token,
