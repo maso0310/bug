@@ -13,10 +13,9 @@ def post_image_to_url(path):
         'http://118.178.124.33:3128',
         'http://139.129.166.68:3128',
         'http://61.143.228.162'
-
     ]
 
-    res_get = requests.get(url,headers=headers,proxies={'http':random.choice(proxies)},timeout=999999999)
+    res_get = requests.get(url,headers=headers,proxies={'http':random.choice(proxies)},timeout=3600)
     soup_get = BeautifulSoup(res_get.text,'html.parser')
     csrf_value = soup_get.find('input')['value']
     print('csrftoken='+csrf_value)
