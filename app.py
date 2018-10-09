@@ -156,8 +156,6 @@ def handle_message(event):
         from worker import conn
 
         q = Queue(connection=conn)
-        print.len(q)
-
         from utils import count_words_at_url
 
         result = q.enqueue(count_words_at_url, 'http://heroku.com',timeout=3600)
