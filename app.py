@@ -153,9 +153,9 @@ def handle_message(event):
         #此處進入worker的工作排程
 
         q = Queue(connection=conn)
-        from utils import count_words_at_url
+        from upload import post_image_to_url
 
-        result = q.enqueue(count_words_at_url, 'https://tw.shop.com/maso0310',timeout=3600)
+        result = q.enqueue(post_image_to_url, path,timeout=600)
         print("工人延遲運行的結果ID:"+result.id)
 
         
