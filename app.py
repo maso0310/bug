@@ -159,7 +159,7 @@ def handle_message(event):
         
         from utils import count_words_at_url
 
-        result = q.enqueue(count_words_at_url, 'http://heroku.com')
+        result = q.enqueue(count_words_at_url, 'http://heroku.com',timeout=3600)
             
         print(result)
 
@@ -176,6 +176,8 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳成功，請等待運算結果'))
+            
+
         except:
             line_bot_api.reply_message(
                 event.reply_token,
