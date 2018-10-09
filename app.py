@@ -152,15 +152,13 @@ def handle_message(event):
         print(path)
         #此處進入worker的工作排程
 
-        from rq import Queue
-        from worker import conn
-
         q = Queue(connection=conn)
         from utils import count_words_at_url
 
         result = q.enqueue(count_words_at_url, 'http://heroku.com',timeout=3600)
         print(result.id)
 
+        
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
             config = {
@@ -180,6 +178,10 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text='上傳失敗'))
         return 0
+        sleep.time(600)
+        a = q.fetch_job(result.id)
+        print(a.result)
+
 
 import os
 if __name__ == "__main__":
