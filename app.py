@@ -155,7 +155,7 @@ def handle_message(event):
         q = Queue(connection=conn)
         from utils import count_words_at_url
 
-        result = q.enqueue(count_words_at_url, 'http://heroku.com',timeout=3600)
+        result = q.enqueue(count_words_at_url, 'https://tw.shop.com/maso0310',timeout=3600)
         print("工人延遲運行的結果ID:"+result.id)
 
         
