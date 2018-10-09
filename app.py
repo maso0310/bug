@@ -156,7 +156,7 @@ def handle_message(event):
         from worker import conn
 
         q = Queue(connection=conn)
-        print len(q)
+        print.len(q)
 
         from utils import count_words_at_url
 
