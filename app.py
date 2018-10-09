@@ -172,14 +172,13 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳成功，請等待運算結果'))
+            job =  q.fetch_job(result.id)
+            print(job.result)
         except:
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳失敗'))
         return 0
-time.sleep(300)
-job =  q.fetch_job(result.id)
-print(job.result)
 
 
 
