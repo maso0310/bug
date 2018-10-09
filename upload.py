@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 
-def post_image_to_url(path):
         url = 'http://140.113.238.34:8000/'
 
         proxies=[
