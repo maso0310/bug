@@ -12,9 +12,8 @@ def post_image_to_url(path):
     proxies=[
         'http://118.178.124.33:3128',
         'http://139.129.166.68:3128',
-        'http://61.143.228.162',
-        'http://10.10.1.10:3128',
-        'http://10.10.1.10:1080'
+        'http://61.143.228.162'
+
     ]
 
     res_get = requests.get(url,headers=headers,proxies={'http':random.choice(proxies)},timeout=999999999)
