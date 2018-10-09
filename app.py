@@ -175,7 +175,7 @@ def handle_message(event):
             os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=result))
+                TextSendMessage(text='上傳成功，請等待運算結果'))
         except:
             line_bot_api.reply_message(
                 event.reply_token,
