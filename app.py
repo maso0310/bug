@@ -149,14 +149,14 @@ def handle_message(event):
 
         os.rename(tempfile_path, dist_path)
         path = os.path.join('static', 'tmp', dist_name)
-        print(path)
+        print("接收到的圖片路徑："+path)
         #此處進入worker的工作排程
 
         q = Queue(connection=conn)
         from utils import count_words_at_url
 
         result = q.enqueue(count_words_at_url, 'http://heroku.com',timeout=3600)
-        print(result.id)
+        print("工人延遲運行的結果ID:"+result.id)
 
         
         try:
@@ -174,7 +174,7 @@ def handle_message(event):
                 TextSendMessage(text='上傳成功，請等待運算結果'))
             time.sleep(10)
             job =  q.fetch_job(result.id)
-            print(job)
+            print(job.result)
 
         except:
             line_bot_api.reply_message(
