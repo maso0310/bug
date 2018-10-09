@@ -178,7 +178,7 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text='上傳失敗'))
         return 0
-        sleep.time(600)
+        sleep.time(10)
         a = q.fetch_job(result.id)
         print(a.result)
 
