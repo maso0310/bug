@@ -152,16 +152,13 @@ def handle_message(event):
         print(path)
         #此處進入worker的工作排程
 
-        from upload import post_image_to_url
-        from redis import Redis
         from rq import Queue
+        from worker import conn
 
-        q = Queue(connection=Redis())
-
-        from upload import post_image_to_url
-        result = q.enqueue(post_image_to_url, path)
-        print(result)
-        a = '試試看回傳的文字'
+        q = Queue(connection=conn)
+        from utils import count_words_at_url
+        result = q.enqueue(count_words_at_url, 'http://heroku.com')
+        a = result.text
             
         print(a)
 
