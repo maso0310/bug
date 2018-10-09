@@ -161,6 +161,8 @@ def handle_message(event):
 
         result = q.enqueue(count_words_at_url, 'http://heroku.com',timeout=3600)
         print(result.id)
+        a = Job.fetch(result.id, connetion=conn)
+        print(a)
 
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
@@ -175,7 +177,6 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳成功，請等待運算結果'))
-            
 
         except:
             line_bot_api.reply_message(
