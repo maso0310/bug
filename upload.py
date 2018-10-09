@@ -26,7 +26,7 @@ def post_image_to_url(path):
         'http://61.143.228.162',
         'http://127.0.0.1:9743'
     ]
-
+    time.sleep(1)
     res_post = requests.post(url,files=files,headers=headers,data=data)
     print(res_post)
     soup_post = BeautifulSoup(res_post.text,'html.parser')
