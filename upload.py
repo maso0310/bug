@@ -9,6 +9,7 @@ def post_image_to_url(path):
     soup_get = BeautifulSoup(res_get.text,'html.parser')
     csrf_value = soup_get.find('input')['value']
     print('csrftoken='+csrf_value)
+    print(res_get)
 
     data = {'csrfmiddlewaretoken':csrf_value}
     files = {'myfile':open("397892.jpg",'rb')}

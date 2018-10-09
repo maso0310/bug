@@ -28,5 +28,6 @@ res_post = requests.post(url,files=files,headers=headers,data=data)
 print(res_post)
 soup_post = BeautifulSoup(res_post.text,'html.parser')
 outcome = soup_post.find_all('p')
-bug_number = outcome.text
-print(bug_number)
+print(outcome)
+bug_number = outcome[1].text
+print(bug_number[9:10])
