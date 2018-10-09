@@ -29,7 +29,6 @@ from config import client_id, client_secret, album_id, access_token, refresh_tok
 #後台任務排程
 from rq import Queue
 from worker import conn
-import sleep
 
 app = Flask(__name__)
 
@@ -173,9 +172,8 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳成功，請等待運算結果'))
-            
-            sleep.time(10)
-            a = q.fetch_job(result.id)
+            time.sleep(10)
+            a = q.HGET(result.id)
             print(a.result)
         except:
             line_bot_api.reply_message(
