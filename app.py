@@ -161,7 +161,7 @@ def handle_message(event):
 
         result = q.enqueue(count_words_at_url, 'http://heroku.com',timeout=3600)
         print(result.id)
-        a = Job.fetch(result.id, connetion=conn)
+        a = result.fetch(result.id, connetion=conn)
         print(a)
 
         try:
