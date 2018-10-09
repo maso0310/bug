@@ -173,7 +173,7 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text='上傳成功，請等待運算結果'))
             time.sleep(10)
-            a = q.HGET(result.id)
+            a = q.fetch(result.id)
             print(a.result)
         except:
             line_bot_api.reply_message(
