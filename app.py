@@ -177,7 +177,7 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text=result))
         except:
-            line_bot_api.reply_messag(
+            line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳失敗'))
         return 0
