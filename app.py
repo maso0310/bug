@@ -172,6 +172,9 @@ def handle_message(event):
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳成功，請等待運算結果'))
+            time.sleep(10)
+            a = conn.hget(result.id,result)
+            print(a)
 
         except:
             line_bot_api.reply_message(
@@ -186,6 +189,3 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
-    time.sleep(10)
-    a = conn.hget(result.id,result)
-    print(a)
