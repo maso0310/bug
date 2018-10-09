@@ -178,9 +178,7 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text='上傳失敗'))
         return 0
-    time.sleep(10)
-    a = conn.hget(result.id,result)
-    print(a)
+
 
 
 
@@ -188,3 +186,6 @@ import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+    time.sleep(10)
+    a = conn.hget(result.id,result)
+    print(a)
