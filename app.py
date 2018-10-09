@@ -160,8 +160,7 @@ def handle_message(event):
         from utils import count_words_at_url
 
         result = q.enqueue(count_words_at_url, 'http://heroku.com',timeout=3600)
-            
-        print(result)
+        print(result.id)
 
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
