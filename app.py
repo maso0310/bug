@@ -160,11 +160,6 @@ def handle_message(event):
 
         result = q.enqueue(count_words_at_url, 'http://heroku.com',timeout=3600)
         print(result.id)
-        a = q.fetch_job(result.id)
-        print(a)
-
-        b = perform_job(self,result)
-        print(b)
 
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
