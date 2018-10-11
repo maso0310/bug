@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 def post_image_to_url(path):
     url = 'http://140.113.238.34:8000/'
 
-    res_get = requests.get(url,proxies={"http":'redis://localhost:6379'})
+    res_get = requests.get(url,proxies={"http":'http://localhost:6379'})
     print(res_get)
     soup_get = BeautifulSoup(res_get.text,'html.parser')
     csrf_value = soup_get.find('input')['value']
