@@ -3,7 +3,7 @@ import random
 from bs4 import BeautifulSoup
 
 def post_image_to_url(path):
-    url = 'http://pythonscraping.com/files/processing2.php'
+    url = 'http://pythonscraping.com/pages/files/processing2.php'
 
     res_get = requests.get(url)
     print(res_get)
