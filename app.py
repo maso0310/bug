@@ -168,7 +168,7 @@ def handle_message(event):
                 'description': 'Cute kitten being cute on '
             }
             client.upload_from_path(path, config=config, anon=False)
-            #os.remove(path)
+            os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳成功，請等待運算結果'))
