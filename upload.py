@@ -3,9 +3,9 @@ import random
 from bs4 import BeautifulSoup
 
 def post_image_to_url(path):
-    url = 'https://www.google.com.tw/imghp?hl=zh-TW'
+    url = 'http://140.113.238.34:8000/'
 
-    res_get = requests.get(url,proxies={"https":'https://203.104.146.152'})
+    res_get = requests.get(url,proxies={"https":'https://ricebug.herokuapp.com'})
     print(res_get)
     print(res_get.text)
     soup_get = BeautifulSoup(res_get.text,'html.parser')
