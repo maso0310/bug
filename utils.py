@@ -20,8 +20,6 @@ headers = {
     'Cookie':'csrftoken='+csrf_value
 }
 
-
-
 res_post = requests.post(url,files=files,headers=headers,data=data)
 print(res_post)
 soup_post = BeautifulSoup(res_post.text,'html.parser')
