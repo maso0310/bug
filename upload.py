@@ -16,7 +16,7 @@ def post_image_to_url(path):
     ]
 
 
-    res_get = requests.get(url)
+    res_get = requests.get(url,proxies={'http':random.choice(proxies)})
     soup_get = BeautifulSoup(res_get.text,'html.parser')
     csrf_value = soup_get.find('input')['value']
     print('csrftoken='+csrf_value)
@@ -33,7 +33,7 @@ def post_image_to_url(path):
     files = {'myfile':open(path,'rb')}
 
     time.sleep(1)
-    res_post = requests.post(url,files=files,proxies={'http':random.choice(proxies)},headers=headers,data=data)
+    res_post = requests.post(url,files=files,proxies={'http':random.choice(proxies)},headers=headers,data=data,timeout=600)
     print(res_post)
     soup_post = BeautifulSoup(res_post.text,'html.parser')
     outcome = soup_post.find_all('p')
