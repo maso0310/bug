@@ -33,7 +33,7 @@ def post_image_to_url(path):
     files = {'myfile':open(path,'rb')}
 
     time.sleep(1)
-    res_post = requests.post(url,files=files,proxies={'http':random.choice(proxies)},headers=headers,data=data)
+    res_post = requests.post(url,files=files,proxies={'http':random.choice(proxies)},headers=headers,data=data,verify = False)
     print(res_post)
     soup_post = BeautifulSoup(res_post.text,'html.parser')
     outcome = soup_post.find_all('p')
