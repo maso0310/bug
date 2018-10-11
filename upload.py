@@ -26,7 +26,7 @@ def post_image_to_url(path):
         'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
         'Referer':'http://140.113.238.34:8000/',
         'Cookie':'csrftoken='+csrf_value,
-        "Connection": "keep-alive"
+        "Connection": "close"
     }
 
     data = {'csrfmiddlewaretoken':csrf_value}
