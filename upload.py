@@ -12,7 +12,7 @@ def post_image_to_url(path):
         "Connection":"keep-alive"
     }
 
-    res_get = requests.get(url)
+    res_get = requests.get(url,headers=headers)
     soup_get = BeautifulSoup(res_get.text,'html.parser')
     csrf_value = soup_get.find('input')['value']
     print('csrftoken='+csrf_value)
