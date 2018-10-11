@@ -25,9 +25,9 @@ def post_image_to_url(path):
 
     res_post = requests.post(url,files=files,timeout=3600)
     print(res_post)
-    soup_post = BeautifulSoup(res_post.text,'html.parser')
-    outcome = soup_post.find_all('p')
-    print(outcome)
-    bug_number = outcome[1].text
-    print(bug_number[9:10])
-    return bug_number[9:10]
+  #  soup_post = BeautifulSoup(res_post.text,'html.parser')
+ #   outcome = soup_post.find_all('body')
+#    print(outcome)
+    bug_number = res_post.text
+    print(bug_number)
+    return bug_number
