@@ -8,7 +8,7 @@ res_get = requests.get(url)
 soup_get = BeautifulSoup(res_get.text,'html.parser')
 csrf_value = soup_get.find('input')['value']
 print('csrftoken='+csrf_value)
-
+'''
 data = {'csrfmiddlewaretoken':csrf_value}
 files = {'myfile':open("397892.jpg",'rb')}
 
@@ -31,3 +31,4 @@ outcome = soup_post.find_all('p')
 print(outcome)
 bug_number = outcome[1].text
 print(bug_number[9:10])
+'''
