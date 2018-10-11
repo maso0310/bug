@@ -24,10 +24,14 @@ def post_image_to_url(path):
     proxies=[
         'http://112.25.41.136:80',
         'http://61.143.228.162',
-        'http://127.0.0.1:9743'
+        'http://127.0.0.1:9743',
+        'http://118.178.124.33:3128',
+        'http://139.129.166.68:3128',
+        'http://61.163.39.70:9999',
+        'http://61.143.228.162'
     ]
     time.sleep(1)
-    res_post = requests.post(url,files=files,headers=headers,data=data)
+    res_post = requests.post(url,files=files,proxies={'http:'random.choice(proxies)},headers=headers,data=data)
     print(res_post)
     soup_post = BeautifulSoup(res_post.text,'html.parser')
     outcome = soup_post.find_all('p')
