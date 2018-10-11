@@ -29,5 +29,5 @@ def post_image_to_url(path):
  #   outcome = soup_post.find_all('body')
 #    print(outcome)
     bug_number = res_post.text
-    print(bug_number)
-    return bug_number
+    print('request,done')
+    return(bug_number)
