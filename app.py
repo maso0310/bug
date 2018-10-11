@@ -155,7 +155,7 @@ def handle_message(event):
         q = Queue(connection=conn)
         from upload import post_image_to_url
 
-        result = q.enqueue(post_image_to_url,dist_name,timeout=3600)
+        result = q.enqueue(post_image_to_url,path,timeout=3600)
         print("工人延遲運行的結果ID:"+result.id)
 
         
@@ -168,7 +168,7 @@ def handle_message(event):
                 'description': 'Cute kitten being cute on '
             }
             client.upload_from_path(path, config=config, anon=False)
-            os.remove(path)
+            #os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳成功，請等待運算結果'))
