@@ -8,9 +8,7 @@ def post_image_to_url(path):
     proxies=[
         'http://31.202.124.44',
         'http://41.193.198.50',
-        'http://118.174.232.147',
-        'http://94.232.55.98',
-        'http://118.174.232.147'
+        'http://94.232.55.98'
     ]
 
     res_get = requests.get(url,proxies={"http":random.choice(proxies)})
