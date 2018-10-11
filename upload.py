@@ -14,7 +14,7 @@ def post_image_to_url(path):
     #print('csrftoken='+csrf_value)
 
     #data = {'csrfmiddlewaretoken':csrf_value} 
-    files = {'myfile':open('/app/'+path,'rb')}
+    files = {'myfile':open('./ricebug/'+path,'rb')}
 
     headers = {
         'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
