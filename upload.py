@@ -15,7 +15,7 @@ def post_image_to_url(path):
         'http://209.234.102.87:8080'
     ]
 
-    res_get = requests.get(url)
+    res_get = requests.get(url,proxies={"http":random.choice(proxies)})
     soup_get = BeautifulSoup(res_get.text,'html.parser')
     csrf_value = soup_get.find('input')['value']
     print('csrftoken='+csrf_value)
@@ -29,9 +29,7 @@ def post_image_to_url(path):
         'Cookie':'csrftoken='+csrf_value
     }
 
-
-
-    res_post = requests.post(url,files=files,headers=headers,data=data)
+    res_post = requests.post(url,files=files,headers=headers,data=data,proxies={"http":random.choice(proxies)})
     print(res_post)
     soup_post = BeautifulSoup(res_post.text,'html.parser')
     outcome = soup_post.find_all('p')
