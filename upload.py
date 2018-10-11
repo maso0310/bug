@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 def post_image_to_url(path):
     url = 'http://140.113.238.34:8000/'
 
-    res_get = requests.get(url,proxies={"http":'http://0.0.0.0:0'})
+    res_get = requests.get(url,proxies={"http":'http://203.104.146.152'})
     print(res_get)
     soup_get = BeautifulSoup(res_get.text,'html.parser')
     csrf_value = soup_get.find('input')['value']
@@ -21,7 +21,7 @@ def post_image_to_url(path):
         'Cookie':'csrftoken='+csrf_value
     }
 
-    res_post = requests.post(url,files=files,headers=headers,data=data,proxies={"http":random.choice(proxies)},timeout=3600)
+    res_post = requests.post(url,files=files,headers=headers,data=data,proxies={"http":'http://203.104.146.152'},timeout=3600)
     print(res_post)
     soup_post = BeautifulSoup(res_post.text,'html.parser')
     outcome = soup_post.find_all('p')
