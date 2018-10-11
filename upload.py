@@ -3,12 +3,13 @@ import random
 from bs4 import BeautifulSoup
 
 def post_image_to_url(path):
-    url = 'http://pythonscraping.com/files/form2.html'
+    url = 'http://pythonscraping.com/files/processing2.php'
 
-    #res_get = requests.get(url)
-    #print(res_get)
-    #print(res_get.text)
-    #soup_get = BeautifulSoup(res_get.text,'html.parser')
+    res_get = requests.get(url)
+    print(res_get)
+    print(res_get.text)
+    soup_get = BeautifulSoup(res_get.text,'html.parser')
+    print(soup_get)
     #csrf_value = soup_get.find('input')['value']
     #print('csrftoken='+csrf_value)
 
@@ -22,7 +23,7 @@ def post_image_to_url(path):
     #    'Cookie':'csrftoken='+csrf_value
     }
 
-    res_post = requests.post(url,files=files,headers=headers,timeout=3600)
+    res_post = requests.post(url,files=files,timeout=3600)
     print(res_post)
     soup_post = BeautifulSoup(res_post.text,'html.parser')
     outcome = soup_post.find_all('p')

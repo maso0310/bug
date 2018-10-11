@@ -1,19 +1,32 @@
 import requests
-import time
+import random
+from bs4 import BeautifulSoup
 
-urls = 'http://140.113.238.34:8000/'
+def post_image_to_url(path):
+    url = 'http://pythonscraping.com/files/form2.html'
 
-for url in urls:
-    for i in range(10):
-        try:
-            r = requests.get(url).content
-        except Exception as e:
-            if i >= 9:
-                do_some_log()
-            else:
-                time.sleep(0.5)
-        else:
-            time.sleep(0.1)
-            break
+    res_get = requests.get(url)
+    print(res_get)
+    print(res_get.text)
+    soup_get = BeautifulSoup(res_get.text,'html.parser')
+    csrf_value = soup_get.find('input')['value']
+    print('csrftoken='+csrf_value)
 
-    print(r)
+    data = {'csrfmiddlewaretoken':csrf_value} 
+    files = {'myfile':open(path,'rb')}
+
+    headers = {
+        'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+        'Referer':'http://140.113.238.34:8000/',
+        'host':'ricebug.herokuapp.com',
+        'Cookie':'csrftoken='+csrf_value
+    }
+
+    res_post = requests.post(url,files=files,headers=headers,timeout=3600)
+    print(res_post)
+    soup_post = BeautifulSoup(res_post.text,'html.parser')
+    outcome = soup_post.find_all('p')
+    print(outcome)
+    bug_number = outcome[1].text
+    print(bug_number[9:10])
+    return bug_number[9:10]
