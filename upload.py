@@ -15,7 +15,7 @@ def post_image_to_url(path):
 
     res_get = requests.get(url,proxies={"http":random.choice(proxies)})
     soup_get = BeautifulSoup(res_get.text,'html.parser')
-    csrf_value = soup_get.find('input')['value']
+    csrf_value = soup_get.find('csrfmiddlewaretoken')['value']
     print('csrftoken='+csrf_value)
 
     data = {'csrfmiddlewaretoken':csrf_value}
