@@ -3,7 +3,7 @@ import random
 from bs4 import BeautifulSoup
 
 def post_image_to_url(path):
-    url = 'http://http://pythonscraping.com/files/form2.html'
+    url = 'http://www.google.com'
 
     res_get = requests.get(url,proxies={"https":'https://203.104.146.152'})
     print(res_get)
