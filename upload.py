@@ -3,10 +3,11 @@ import random
 from bs4 import BeautifulSoup
 
 def post_image_to_url(path):
-    url = 'http://www.google.com'
+    url = 'http://https://www.google.com.tw/imghp?hl=zh-TW'
 
     res_get = requests.get(url,proxies={"https":'https://203.104.146.152'})
     print(res_get)
+    print(res_get.text)
     soup_get = BeautifulSoup(res_get.text,'html.parser')
     csrf_value = soup_get.find('input')['value']
     print('csrftoken='+csrf_value)
