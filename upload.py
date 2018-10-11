@@ -6,7 +6,7 @@ def post_image_to_url(path):
     url = 'http://140.113.238.34:8000/'
 
     proxies=[
-        "http":"http://10.10.1.10:3128","https":"http://10.10.1.10:1080"
+        "http://10.10.1.10:3128","http://10.10.1.10:1080"
     ]
 
 
