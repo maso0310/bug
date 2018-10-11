@@ -155,7 +155,7 @@ def handle_message(event):
         q = Queue(connection=conn)
         from upload import post_image_to_url
 
-        result = q.enqueue(post_image_to_url, path)
+        result = q.enqueue(post_image_to_url,path,timeout=3600)
         print("工人延遲運行的結果ID:"+result.id)
 
         
