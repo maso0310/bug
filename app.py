@@ -150,7 +150,11 @@ def handle_message(event):
         os.rename(tempfile_path, dist_path)
         path = os.path.join('static', 'tmp', dist_name)
         print("接收到的圖片路徑："+path)
-        #此處進入worker的工作排程
+
+        #將圖片上傳至google雲端硬碟
+        
+
+        #此處進入worker的工作排程，讓worker去雲端抓圖片
 
         q = Queue(connection=conn)
         from upload import post_image_to_url
