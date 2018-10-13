@@ -205,13 +205,13 @@ def handle_message(event):
                 tf.write(chunk)
             tempfile_path = tf.name
         #臨時路徑+副檔名
-        dist_path = tempfile_path + '.' + ext
-        #未知
-        dist_name = os.path.basename(dist_path)
-        #os.rename(old,new)將舊檔名改成新檔名
-        os.rename(tempfile_path, dist_path)
-        path = os.path.join('static', 'tmp', dist_name)
-        print("接收到的圖片路徑："+path)
+            dist_path = tempfile_path + '.' + ext
+            #未知
+            dist_name = os.path.basename(dist_path)
+            #os.rename(old,new)將舊檔名改成新檔名
+            os.rename(tempfile_path, dist_path)
+            path = os.path.join('static', 'tmp', dist_name)
+            print("接收到的圖片路徑："+path)
 
         #將圖片上傳至google雲端硬碟
         """Shows basic usage of the Google Drive API.
