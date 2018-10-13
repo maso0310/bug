@@ -206,9 +206,9 @@ def handle_message(event):
             tempfile_path = tf.name
         #臨時路徑+副檔名
         dist_path = tempfile_path + '.' + ext
-        
+        #未知
         dist_name = os.path.basename(dist_path)
-
+        #os.rename(old,new)將舊檔名改成新檔名
         os.rename(tempfile_path, dist_path)
         path = os.path.join('static', 'tmp', dist_name)
         print("接收到的圖片路徑："+path)
@@ -219,27 +219,7 @@ def handle_message(event):
         Creates a Google Drive API service object and outputs the names and IDs
         for up to 10 files.
         """
-        credentials = get_credentials()
-        http = credentials.authorize(httplib2.Http())
-        service = discovery.build('drive', 'v3', http=http)
 
-        results = service.files().list(
-            pageSize=10,fields="nextPageToken, files(id, name)").execute()
-        items = results.get('files', [])
-        if not items:
-            print('No files found.')
-        else:
-            print('Files:')
-            for item in items:
-                print('{0} ({1})'.format(item['name'], item['id']))
-        ### upload file ###
-        file_metadata = {
-            'name' : dist_name,
-            'mimeType' : 'image/jpeg'
-        }
-        media = MediaFileUpload(path,mimetype='img/jpeg',resumable=True)
-        file = service.files().create(body=file_metadata,media_body=media,fields='id').execute()
-        print ('File ID: %s' % file.get('id'))
 '''
         #此處進入worker的工作排程，讓worker去雲端抓圖片
 
@@ -251,14 +231,27 @@ def handle_message(event):
 
 '''
         try:
-            client = ImgurClient(client_id, client_secret, access_token, refresh_token)
-            config = {
-                'album': 'UthLp77',
-                'name': 'Catastrophe!',
-                'title': 'Catastrophe!',
-                'description': 'Cute kitten being cute on '
+            credentials = get_credentials()
+            http = credentials.authorize(httplib2.Http())
+            service = discovery.build('drive', 'v3', http=http)
+
+            results = service.files().list(
+                pageSize=10,fields="nextPageToken, files(id, name)").execute()
+            items = results.get('files', [])
+            if not items:
+                print('No files found.')
+            else:
+                print('Files:')
+                for item in items:
+                    print('{0} ({1})'.format(item['name'], item['id']))
+            ### upload file ###
+            file_metadata = {
+                'name' : dist_name,
+                'mimeType' : 'image/jpeg'
             }
-            client.upload_from_path(path, config=config, anon=False)
+            media = MediaFileUpload(path,mimetype='img/jpeg',resumable=True)
+            file = service.files().create(body=file_metadata,media_body=media,fields='id').execute()
+            print ('File ID: %s' % file.get('id'))
 
             os.remove(path)
             line_bot_api.reply_message(
