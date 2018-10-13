@@ -1,10 +1,20 @@
-import apiai
+#基礎套件
 import json
-import requests
+import time
+
+#AI自然語言分析
+import apiai
+
+#網頁爬蟲
 import random
+import requests
 from bs4 import BeautifulSoup
 from flask import Flask, request, abort
+
+#IMGUR上傳
 from imgurpython import ImgurClient
+
+#LINEAPI
 from linebot import (
     LineBotApi, WebhookHandler
 )
@@ -15,6 +25,10 @@ from linebot.models import *
 import tempfile, os
 from config import client_id, client_secret, album_id, access_token, refresh_token, line_channel_access_token, \
     line_channel_secret
+
+#後台任務排程
+from rq import Queue
+from worker import conn
 
 app = Flask(__name__)
 
@@ -45,7 +59,7 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-
+'''
 # ================= 客製區 Start =================
 def is_alphabet(uchar):
     if ('\u0041' <= uchar<='\u005a') or ('\u0061' <= uchar<='\u007a'):
@@ -58,7 +72,6 @@ def is_alphabet(uchar):
     else:
         return "en"
 # ================= 客製區 End =================
-
 @handler.add(MessageEvent, message=(TextMessage))  # default
 def handle_text_message(event):                  # default
     msg = event.message.text # message from user
@@ -119,9 +132,9 @@ def handle_text_message(event):                  # default
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=msg))
+'''
 
-
-@handler.add(MessageEvent, message=(ImageMessage, TextMessage))
+@handler.add(MessageEvent, message=(ImageMessage))
 def handle_message(event):
     if isinstance(event.message, ImageMessage):
         ext = 'jpg'
@@ -136,30 +149,20 @@ def handle_message(event):
 
         os.rename(tempfile_path, dist_path)
         path = os.path.join('static', 'tmp', dist_name)
-        url = 'http://140.113.238.34:8000/'
-        res_get = requests.get(url)
-        soup_get = BeautifulSoup(res_get.text,'html.parser')
-        csrf_value = soup_get.find('input')['value']
+        print("接收到的圖片路徑："+path)
 
-        print('csrftoken='+csrf_value)
+        #將圖片上傳至google雲端硬碟
+        
 
-        data = {'csrfmiddlewaretoken':csrf_value}
-        files = {'myfile':open(path,'rb')}
-        headers = {
-            'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
-            'Cookie':'csrftoken='+csrf_value,
-            'Referer':'http://140.113.238.34:8000/'
-        }
+        #此處進入worker的工作排程，讓worker去雲端抓圖片
 
-        res_post = requests.post(url,files=files,headers=headers,data=data)
-        soup_post = BeautifulSoup(res_post.text,'html.parser')
-        outcome = soup_post.find('p')
-        bug_number = outcome.text
-        bug_number_message ={
-            'type':'text',
-            'text':'影像判識結果，褐飛蝨數量為：'+bug_number
-        }
+        q = Queue(connection=conn)
+        from upload import post_image_to_url
 
+        result = q.enqueue(post_image_to_url,path,timeout=3600)
+        print("工人延遲運行的結果ID:"+result.id)
+
+        
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
             config = {
@@ -169,15 +172,20 @@ def handle_message(event):
                 'description': 'Cute kitten being cute on '
             }
             client.upload_from_path(path, config=config, anon=False)
-            os.remove(path)
+            #os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
-                TextSendMessage(text=bug_number))
+                TextSendMessage(text='上傳成功，請等待運算結果'))
+            #job =  q.fetch_job(result.id)
+            #print(job.result)
         except:
-            line_bot_api.reply_messag(
+            line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳失敗'))
         return 0
+
+
+
 
 import os
 if __name__ == "__main__":

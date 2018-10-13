@@ -1,6 +1,24 @@
 #基礎套件
 import json
 import time
+import os
+
+#GOOGLE DRIVE
+from __future__ import print_function
+import httplib2
+
+from apiclient import discovery
+from oauth2client import client
+from oauth2client import tools
+from oauth2client.file import Storage
+from apiclient.http import MediaFileUpload
+
+
+try:
+    import argparse
+    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+except ImportError:
+    flags = None
 
 #AI自然語言分析
 import apiai
@@ -41,6 +59,44 @@ Imgur_API_SECRET = os.environ.get('1048d01dec6ca4a8b6041e609358f1c2540a144d')
 ai = apiai.ApiAI('084bce6e157c47d39d5cb23715b47b69')
 line_bot_api = LineBotApi('ZbWIGQOfoxOLqko0Fhh/OTjBMeeXrd+Py4xyAaNeFsa0bVP3vY05ZyOZEVj8cS9Zu+PDXGMfIUDzAGhFEjHVMN8J9ocEZsuGotbuRhzeQTML221ynVdVwXntBcIP4Ft+Sy0omAoemN84m8OxTJbFWQdB04t89/1O/w1cDnyilFU=')
 handler = WebhookHandler('eeed6c17319b3f197e255e08bc2e98c3')
+
+#google drive的相關文件位置
+#如果要修改這些範圍，請刪除以前保存的憑據
+#at~ / .credentials / drive-python-quickstart.json
+
+SCOPES = 'https://www.googleapis.com/auth/drive'
+CLIENT_SECRET_FILE = 'credentials.json'
+APPLICATION_NAME = 'Drive API Python Quickstart'
+
+#google drive獲得認證函數
+
+def get_credentials():
+    """Gets valid user credentials from storage.
+
+    If nothing has been stored, or if the stored credentials are invalid,
+    the OAuth2 flow is completed to obtain the new credentials.
+
+    Returns:
+        Credentials, the obtained credential.
+    """
+    home_dir = os.path.expanduser('~')
+    credential_dir = os.path.join(home_dir, '.credentials')
+    if not os.path.exists(credential_dir):
+        os.makedirs(credential_dir)
+    credential_path = os.path.join(credential_dir,
+                                   'drive-python-quickstart.json')
+
+    store = Storage(credential_path)
+    credentials = store.get()
+    if not credentials or credentials.invalid:
+        flow = client.flow_from_clientsecrets(CLIENT_SECRET_FILE, SCOPES)
+        flow.user_agent = APPLICATION_NAME
+        if flags:
+            credentials = tools.run_flow(flow, store, flags)
+        else: # Needed only for compatibility with Python 2.6
+            credentials = tools.run(flow, store)
+        print('Storing credentials to ' + credential_path)
+    return credentials
 
 static_tmp_path = os.path.join(os.path.dirname(__file__), 'static', 'tmp')
 
@@ -152,8 +208,33 @@ def handle_message(event):
         print("接收到的圖片路徑："+path)
 
         #將圖片上傳至google雲端硬碟
-        
+        """Shows basic usage of the Google Drive API.
 
+        Creates a Google Drive API service object and outputs the names and IDs
+        for up to 10 files.
+        """
+        credentials = get_credentials()
+        http = credentials.authorize(httplib2.Http())
+        service = discovery.build('drive', 'v3', http=http)
+
+        results = service.files().list(
+            pageSize=10,fields="nextPageToken, files(id, name)").execute()
+        items = results.get('files', [])
+        if not items:
+            print('No files found.')
+        else:
+            print('Files:')
+            for item in items:
+                print('{0} ({1})'.format(item['name'], item['id']))
+        ### upload file ###
+        file_metadata = {
+            'name' : dist_name,
+            'mimeType' : 'image/jpeg'
+        }
+        media = MediaFileUpload(path,mimetype='img/jpeg',resumable=True)
+        file = service.files().create(body=file_metadata,media_body=media,fields='id').execute()
+        print ('File ID: %s' % file.get('id'))
+'''
         #此處進入worker的工作排程，讓worker去雲端抓圖片
 
         q = Queue(connection=conn)
@@ -172,7 +253,8 @@ def handle_message(event):
                 'description': 'Cute kitten being cute on '
             }
             client.upload_from_path(path, config=config, anon=False)
-            #os.remove(path)
+'''
+            os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳成功，請等待運算結果'))
