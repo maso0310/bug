@@ -229,14 +229,13 @@ def handle_message(event):
         result = q.enqueue(post_image_to_url,path,timeout=3600)
         print("工人延遲運行的結果ID:"+result.id)
 
-
+'''
         try:
             credentials = get_credentials()
             http = credentials.authorize(httplib2.Http())
             service = discovery.build('drive', 'v3', http=http)
 
-            results = service.files().list(
-                pageSize=10,fields="nextPageToken, files(id, name)").execute()
+            results = service.files().list(pageSize=10,fields="nextPageToken, files(id, name)").execute()
             items = results.get('files', [])
             if not items:
                 print('No files found.')
@@ -264,7 +263,7 @@ def handle_message(event):
                 event.reply_token,
                 TextSendMessage(text='上傳失敗'))
         return 0
-'''
+
 
 
 
