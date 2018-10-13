@@ -192,15 +192,21 @@ def handle_text_message(event):                  # default
 
 @handler.add(MessageEvent, message=(ImageMessage))
 def handle_message(event):
+    #如果LINE用戶端傳送過來的是圖片
     if isinstance(event.message, ImageMessage):
+    #先設定選擇的檔案附檔名
         ext = 'jpg'
+        #擷取訊息內容
         message_content = line_bot_api.get_message_content(event.message.id)
+        #建立臨時目錄
         with tempfile.NamedTemporaryFile(dir=static_tmp_path, prefix=ext + '-', delete=False) as tf:
+        #將臨時目錄寫入路徑tempfile_path
             for chunk in message_content.iter_content():
                 tf.write(chunk)
             tempfile_path = tf.name
-
+        #臨時路徑+副檔名
         dist_path = tempfile_path + '.' + ext
+        
         dist_name = os.path.basename(dist_path)
 
         os.rename(tempfile_path, dist_path)
@@ -243,7 +249,7 @@ def handle_message(event):
         result = q.enqueue(post_image_to_url,path,timeout=3600)
         print("工人延遲運行的結果ID:"+result.id)
 
-        
+'''
         try:
             client = ImgurClient(client_id, client_secret, access_token, refresh_token)
             config = {
@@ -253,7 +259,7 @@ def handle_message(event):
                 'description': 'Cute kitten being cute on '
             }
             client.upload_from_path(path, config=config, anon=False)
-'''
+
             os.remove(path)
             line_bot_api.reply_message(
                 event.reply_token,
