@@ -229,42 +229,42 @@ def handle_message(event):
         result = q.enqueue(post_image_to_url,path,timeout=3600)
         print("工人延遲運行的結果ID:"+result.id)
 
-'''
-            try:
-                credentials = get_credentials()
-                http = credentials.authorize(httplib2.Http())
-                service = discovery.build('drive', 'v3', http=http)
 
-                results = service.files().list(
-                    pageSize=10,fields="nextPageToken, files(id, name)").execute()
-                items = results.get('files', [])
-                if not items:
-                    print('No files found.')
-                else:
-                    print('Files:')
-                    for item in items:
-                        print('{0} ({1})'.format(item['name'], item['id']))
-                ### upload file ###
-                file_metadata = {
-                    'name' : dist_name,
-                    'mimeType' : 'image/jpeg'
-                }
-                media = MediaFileUpload(path,mimetype='img/jpeg',resumable=True)
-                file = service.files().create(body=file_metadata,media_body=media,fields='id').execute()
-                print ('File ID: %s' % file.get('id'))
+        try:
+            credentials = get_credentials()
+            http = credentials.authorize(httplib2.Http())
+            service = discovery.build('drive', 'v3', http=http)
 
-                os.remove(path)
-                line_bot_api.reply_message(
-                    event.reply_token,
-                    TextSendMessage(text='上傳成功，請等待運算結果'))
-                #job =  q.fetch_job(result.id)
-                #print(job.result)
+            results = service.files().list(
+                pageSize=10,fields="nextPageToken, files(id, name)").execute()
+            items = results.get('files', [])
+            if not items:
+                print('No files found.')
+            else:
+                print('Files:')
+                for item in items:
+                    print('{0} ({1})'.format(item['name'], item['id']))
+            ### upload file ###
+            file_metadata = {
+                'name' : dist_name,
+                'mimeType' : 'image/jpeg'
+            }
+            media = MediaFileUpload(path,mimetype='img/jpeg',resumable=True)
+            file = service.files().create(body=file_metadata,media_body=media,fields='id').execute()
+            print ('File ID: %s' % file.get('id'))
+
+            os.remove(path)
+            line_bot_api.reply_message(
+                event.reply_token,
+                TextSendMessage(text='上傳成功，請等待運算結果'))
+            #job =  q.fetch_job(result.id)
+            #print(job.result)
         except:
             line_bot_api.reply_message(
                 event.reply_token,
                 TextSendMessage(text='上傳失敗'))
         return 0
-
+'''
 
 
 
