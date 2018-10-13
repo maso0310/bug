@@ -1,8 +1,3 @@
-#基礎套件
-import json
-import time
-import os
-
 #GOOGLE DRIVE
 from __future__ import print_function
 import httplib2
@@ -19,6 +14,11 @@ try:
     flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
 except ImportError:
     flags = None
+
+#基礎套件
+import json
+import time
+import os
 
 #AI自然語言分析
 import apiai
