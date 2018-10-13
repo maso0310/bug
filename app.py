@@ -43,11 +43,11 @@ from linebot.models import *
 import tempfile, os
 from config import client_id, client_secret, album_id, access_token, refresh_token, line_channel_access_token, \
     line_channel_secret
-
+'''
 #後台任務排程
 from rq import Queue
 from worker import conn
-
+'''
 app = Flask(__name__)
 
 #各種API的認證
