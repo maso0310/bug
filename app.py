@@ -1,6 +1,13 @@
-#GOOGLE DRIVE
+#google drive api
 from __future__ import print_function
 import httplib2
+import os
+
+from apiclient import discovery
+from oauth2client import client
+from oauth2client import tools
+from oauth2client.file import Storage
+from apiclient.http import MediaFileUpload
 
 #基礎套件
 import json
@@ -32,20 +39,6 @@ import tempfile, os
 from config import client_id, client_secret, album_id, access_token, refresh_token, line_channel_access_token, \
     line_channel_secret
 
-
-
-from apiclient import discovery
-from oauth2client import client
-from oauth2client import tools
-from oauth2client.file import Storage
-from apiclient.http import MediaFileUpload
-
-
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
 
 
 '''
@@ -113,6 +106,7 @@ def callback():
         abort(400)
     return 'OK'
 
+#APP的main函數
 @handler.add(MessageEvent, message=(ImageMessage))
 def handle_message(event):
     #如果LINE用戶端傳送過來的是圖片
