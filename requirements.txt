@@ -15,6 +15,7 @@ ExifRead==2.1.2
 Flask==1.0.2
 get==1.0.3
 gunicorn==19.6.0
+httplib2==0.11.3
 html5lib==1.0.1
 idna==2.7
 imgurpython==1.1.7
