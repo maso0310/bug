@@ -9,6 +9,7 @@ from oauth2client import tools
 from oauth2client.file import Storage
 from apiclient.http import MediaFileUpload
 
+
 #基礎套件
 import json
 import time
