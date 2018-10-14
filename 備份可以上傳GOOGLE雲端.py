@@ -41,12 +41,10 @@ from config import client_id, client_secret, album_id, access_token, refresh_tok
     line_channel_secret
 
 
-
-'''
 #後台任務排程
 from rq import Queue
 from worker import conn
-'''
+
 app = Flask(__name__)
 
 #各種API的認證
@@ -64,7 +62,7 @@ handler = WebhookHandler('eeed6c17319b3f197e255e08bc2e98c3')
 #at~ / .credentials / drive-python-quickstart.json
 
 SCOPES = 'https://www.googleapis.com/auth/drive'
-CLIENT_SECRET_FILE = 'credentials.json'
+CLIENT_SECRET_FILE = '/app/credentials.json'
 APPLICATION_NAME = 'Drive API Python Quickstart'
 
 #google drive獲得認證函數
@@ -143,7 +141,7 @@ def handle_message(event):
                 print('Files:')
                 for item in items:
                     print('{0} ({1})'.format(item['name'], item['id']))
-            ### upload file ###
+            #上傳檔案到google
             file_metadata = {
                 'name' : dist_name,
                 'mimeType' : 'image/jpeg'
@@ -152,18 +150,10 @@ def handle_message(event):
             file = service.files().create(body=file_metadata,media_body=media,fields='id').execute()
             print ('File ID: %s' % file.get('id'))
 
-        #此處進入worker的工作排程，讓worker去雲端抓圖片,path部分要輸入去雲端硬碟讀取的資料內容
-
-            q = Queue(connection=conn)
-            from upload import post_image_to_url
-
-            result = q.enqueue(post_image_to_url,path,timeout=3600)
-            print("工人延遲運行的結果ID:"+result.id)
-
             os.remove(path)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='上傳成功，請等待運算結果'))
-            job =  q.fetch_job(result.id)
-            print(job.result)
+            #job =  q.fetch_job(result.id)
+            #print(job.result)
         except:
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='上傳失敗'))
         return 0

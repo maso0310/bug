@@ -59,7 +59,7 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-'''
+
 # ================= 客製區 Start =================
 def is_alphabet(uchar):
     if ('\u0041' <= uchar<='\u005a') or ('\u0061' <= uchar<='\u007a'):
@@ -132,7 +132,7 @@ def handle_text_message(event):                  # default
         line_bot_api.reply_message(
             event.reply_token,
             TextSendMessage(text=msg))
-'''
+
 
 @handler.add(MessageEvent, message=(ImageMessage))
 def handle_message(event):
