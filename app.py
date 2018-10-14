@@ -117,7 +117,7 @@ def handle_message(event):
         message_content = line_bot_api.get_message_content(event.message.id)
         print(message_content)
         #建立臨時目錄
-        with tempfile.NamedTemporaryFile(dir=static_tmp_path,'wb', prefix=ext + '-', delete=False) as tf:
+        with tempfile.NamedTemporaryFile(dir=static_tmp_path, prefix=ext + '-', delete=False) as tf:
         #將臨時目錄寫入路徑tempfile_path
             for chunk in message_content.iter_content():
                 tf.write(chunk)
