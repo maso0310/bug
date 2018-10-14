@@ -1,3 +1,7 @@
+#GOOGLE DRIVE
+from __future__ import print_function
+import httplib2
+
 #基礎套件
 import json
 import time
@@ -28,9 +32,7 @@ import tempfile, os
 from config import client_id, client_secret, album_id, access_token, refresh_token, line_channel_access_token, \
     line_channel_secret
 
-#GOOGLE DRIVE
-from __future__ import print_function
-import httplib2
+
 
 from apiclient import discovery
 from oauth2client import client
