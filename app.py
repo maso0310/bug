@@ -1,20 +1,3 @@
-#GOOGLE DRIVE
-from __future__ import print_function
-import httplib2
-
-from apiclient import discovery
-from oauth2client import client
-from oauth2client import tools
-from oauth2client.file import Storage
-from apiclient.http import MediaFileUpload
-
-
-try:
-    import argparse
-    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
-except ImportError:
-    flags = None
-
 #基礎套件
 import json
 import time
@@ -44,6 +27,25 @@ from linebot.models import *
 import tempfile, os
 from config import client_id, client_secret, album_id, access_token, refresh_token, line_channel_access_token, \
     line_channel_secret
+
+#GOOGLE DRIVE
+from __future__ import print_function
+import httplib2
+
+from apiclient import discovery
+from oauth2client import client
+from oauth2client import tools
+from oauth2client.file import Storage
+from apiclient.http import MediaFileUpload
+
+
+try:
+    import argparse
+    flags = argparse.ArgumentParser(parents=[tools.argparser]).parse_args()
+except ImportError:
+    flags = None
+
+
 '''
 #後台任務排程
 from rq import Queue
@@ -72,14 +74,6 @@ APPLICATION_NAME = 'Drive API Python Quickstart'
 #google drive獲得認證函數
 
 def get_credentials():
-    """Gets valid user credentials from storage.
-
-    If nothing has been stored, or if the stored credentials are invalid,
-    the OAuth2 flow is completed to obtain the new credentials.
-
-    Returns:
-        Credentials, the obtained credential.
-    """
     home_dir = os.path.expanduser('~')
     credential_dir = os.path.join(home_dir, '.credentials')
     if not os.path.exists(credential_dir):
@@ -116,80 +110,6 @@ def callback():
     except InvalidSignatureError:
         abort(400)
     return 'OK'
-'''
-# ================= 客製區 Start =================
-def is_alphabet(uchar):
-    if ('\u0041' <= uchar<='\u005a') or ('\u0061' <= uchar<='\u007a'):
-        print('訊息的語言English')
-        return "en"
-    elif '\u4e00' <= uchar<='\u9fff':
-        #print('Chinese')
-        print('訊息的語言Chinese')
-        return "zh-tw"
-    else:
-        return "en"
-# ================= 客製區 End =================
-@handler.add(MessageEvent, message=(TextMessage))  # default
-def handle_text_message(event):                  # default
-    msg = event.message.text # message from user
-    uid = event.source.user_id # user id
-    profile = line_bot_api.get_profile(uid)
-    print(profile.display_name)
-    print(profile.user_id)
-    print('大頭貼網址：'+profile.picture_url)
-    print(profile.status_message)
-
-    print('使用者傳來的訊息：'+msg)
-    print('使用者的ID：'+uid)
-
-    # 1. 傳送使用者輸入到 dialogflow 上
-    ai_request = ai.text_request()
-    #ai_request.lang = "en"
-    ai_request.lang = is_alphabet(msg)
-    ai_request.session_id = uid
-    ai_request.query = msg
-
-    print('這是AI收到訊息的語言：' + ai_request.lang)
-    print('這是AI收到使用者ID：' + ai_request.session_id)
-    print('這是AI收到的訊息：' + ai_request.query)
-
-    # 2. 獲得使用者的意圖
-    ai_response = json.loads(ai_request.getresponse().read())
-    user_intent = ai_response['result']['metadata']['intentName']
-    print(ai_response),
-    print('使用者意圖：' + user_intent)
-
-    # 3. 根據使用者的意圖做相對應的回答
-    if ai_request.query == "WhatToEatForLunch": # 當使用者意圖為詢問午餐時
-        # 建立一個 button 的 template
-        buttons_template_message = TemplateSendMessage(
-            alt_text="Please tell me where you are",
-            template=ButtonsTemplate(
-                text="Please tell me where you are",
-                actions=[
-                    URITemplateAction(
-                        label="Send my location",
-                        uri="line://nv/location"
-                    )
-                ]
-            )
-        )
-        line_bot_api.reply_message(
-            event.reply_token,
-            buttons_template_message)
-
-    elif ai_request.query == "WhatToPlay": # 當使用者意圖為詢問遊戲時
-        msg = "Hello, it's not ready"
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=msg))
-
-    else: # 聽不懂時的回答
-        msg = "Sorry，I don't understand"
-        line_bot_api.reply_message(
-            event.reply_token,
-            TextSendMessage(text=msg))
-'''
 
 @handler.add(MessageEvent, message=(ImageMessage))
 def handle_message(event):
