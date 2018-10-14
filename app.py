@@ -213,6 +213,7 @@ def handle_message(event):
         os.rename(tempfile_path, dist_path)
         path = os.path.join('static', 'tmp', dist_name)
         print("接收到的圖片路徑："+path)
+
         try:
             credentials = get_credentials()
             http = credentials.authorize(httplib2.Http())
