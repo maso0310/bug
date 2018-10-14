@@ -1,4 +1,5 @@
 {
     "editor.renderControlCharacters": true,
-    "editor.renderWhitespace": "all"
+    "editor.renderWhitespace": "all",
+    "python.pythonPath": "C:\\Users\\balim\\AppData\\Local\\Programs\\Python\\Python37-32\\python.exe"
 }

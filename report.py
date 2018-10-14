@@ -71,9 +71,9 @@ def main():
             print('{0} ({1})'.format(item['name'], item['id']))
     ### upload file ###
     file_metadata = {
-	    'name' : 'My Report',
-	    'mimeType' : 'image/jpeg'
-	}
+        'name' : 'My Report',
+        'mimeType' : 'image/jpeg'
+    }
     media = MediaFileUpload('397892.jpg',mimetype='img/jpeg',resumable=True)
     file = service.files().create(body=file_metadata,media_body=media,fields='id').execute()
     print ('File ID: %s' % file.get('id'))

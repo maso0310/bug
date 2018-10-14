@@ -27,6 +27,7 @@ import apiai
 import random
 import requests
 from bs4 import BeautifulSoup
+
 from flask import Flask, request, abort
 
 #IMGUR上傳
