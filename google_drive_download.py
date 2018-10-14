@@ -1,12 +1,14 @@
 from __future__ import print_function
 import httplib2
 import os
+import io
 
 from apiclient import discovery
 from oauth2client import client
 from oauth2client import tools
 from oauth2client.file import Storage
 from apiclient.http import MediaFileUpload
+from apiclient.http import MediaIoBaseDownload
 
 
 try:
@@ -69,14 +71,16 @@ def main():
         print('Files:')
         for item in items:
             print('{0} ({1})'.format(item['name'], item['id']))
-    ### upload file ###
-    file_metadata = {
-        'name' : 'My Report',
-        'mimeType' : 'image/jpeg'
-    }
-    media = MediaFileUpload('397892.jpg',mimetype='img/jpeg',resumable=True)
-    file = service.files().create(body=file_metadata,media_body=media,fields='id').execute()
-    print ('File ID: %s' % file.get('id'))
+    #download file
+    file_id = '1ltXFMCEpGwgMyevrepGTch95VH9Wx1if'
+    request = service.files().get_media(fileId=file_id)
+    fh = io.FileIO(file_id+'.jpg','wb')
+    downloader = MediaIoBaseDownload(fh, request)
+    print(downloader)
+    done = False
+    while done is False:
+        status, done = downloader.next_chunk()
+        print ("Download %d%%." % int(status.progress() * 100))
 
 
 if __name__ == '__main__':

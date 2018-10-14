@@ -10,6 +10,7 @@ from oauth2client.file import Storage
 from apiclient.http import MediaFileUpload
 
 
+
 #基礎套件
 import json
 import time
@@ -150,7 +151,9 @@ def handle_message(event):
                 'mimeType' : 'image/jpeg'
             }
             media = MediaFileUpload(path,mimetype='img/jpeg',resumable=True)
+            file_id = file.get('id')
             file = service.files().create(body=file_metadata,media_body=media,fields='id').execute()
+            print(file_id)
             print ('File ID: %s' % file.get('id'))
             '''
             #此處進入worker的工作排程，讓worker去雲端抓圖片
