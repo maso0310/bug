@@ -153,13 +153,13 @@ def handle_message(event):
             print ('File ID: %s' % file.get('id'))
 
         #此處進入worker的工作排程，讓worker去雲端抓圖片,path部分要輸入去雲端硬碟讀取的資料內容
-
+'''
             q = Queue(connection=conn)
             from upload import post_image_to_url
 
             result = q.enqueue(post_image_to_url,path,timeout=3600)
             print("工人延遲運行的結果ID:"+result.id)
-
+'''
             os.remove(path)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='上傳成功，請等待運算結果'))
             job =  q.fetch_job(result.id)
