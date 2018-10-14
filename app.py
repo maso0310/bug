@@ -64,7 +64,7 @@ handler = WebhookHandler('eeed6c17319b3f197e255e08bc2e98c3')
 #at~ / .credentials / drive-python-quickstart.json
 
 SCOPES = 'https://www.googleapis.com/auth/drive'
-CLIENT_SECRET_FILE = 'credentials.json'
+CLIENT_SECRET_FILE = '/app/credentials.json'
 APPLICATION_NAME = 'Drive API Python Quickstart'
 
 #google drive獲得認證函數
