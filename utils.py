@@ -18,7 +18,7 @@ headers = {
     'Referer':'http://140.113.238.34:8000/',
     'Cookie':'csrftoken='+csrf_value
 }
-res_post = requests.post(url,data=data,headers=headers,files=files)
+res_post = requests.post(url,data=data,files=files)
 print(res_post)
 soup_post = BeautifulSoup(res_post.text,'html.parser')
 outcome = soup_post.text

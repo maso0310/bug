@@ -151,8 +151,8 @@ def handle_message(event):
                 'mimeType' : 'image/jpeg'
             }
             media = MediaFileUpload(path,mimetype='img/jpeg',resumable=True)
-            file_id = file.get('id')
             file = service.files().create(body=file_metadata,media_body=media,fields='id').execute()
+            file_id = file.get('id')
             print(file_id)
             print ('File ID: %s' % file.get('id'))
             '''
