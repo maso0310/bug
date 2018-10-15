@@ -39,7 +39,7 @@ CLIENT_SECRET_FILE = 'credentials.json'
 APPLICATION_NAME = 'Drive API Python Quickstart'
 
 
-def get_img(credentials,):
+def get_img(credentials,file_id):
 
     credentials = get_credentials()
     http = credentials.authorize(httplib2.Http())
@@ -48,14 +48,9 @@ def get_img(credentials,):
     results = service.files().list(
         pageSize=10,fields="nextPageToken, files(id, name)").execute()
     items = results.get('files', [])
-    if not items:
-        print('No files found.')
-    else:
-        print('Files:')
-        for item in items:
-            print('{0} ({1})'.format(item['name'], item['id']))
-    #download file
-    file_id = '1ltXFMCEpGwgMyevrepGTch95VH9Wx1if'
+
+    #下載檔案至根目錄
+    #file_id = '1ltXFMCEpGwgMyevrepGTch95VH9Wx1if'
     request = service.files().get_media(fileId=file_id)
     fh = io.FileIO(file_id+'.jpg','wb')
     downloader = MediaIoBaseDownload(fh, request)
@@ -65,21 +60,19 @@ def get_img(credentials,):
         status, done = downloader.next_chunk()
         print ("Download %d%%." % int(status.progress() * 100))
 
-
-
-#設置要POST的訊息
-data = {'csrfmiddlewaretoken':csrf_value}
-files = {'uploadFile':open("RIMG0424.JPG",'rb')}
-print(files)
-headers = {
-    'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
-    'Referer':'http://140.113.238.34:8000/',
-    'Cookie':'csrftoken='+csrf_value
-}
-res_post = requests.post(url,data=data,headers=headers,files=files)
-print(res_post)
-soup_post = BeautifulSoup(res_post.text,'html.parser')
-outcome = soup_post.text
-#print(outcome)
-#bug_number = outcome
-#print(bug_number)
+    #設置要POST的訊息
+    data = {'csrfmiddlewaretoken':csrf_value}
+    files = {'uploadFile':open(file_id+'.jpg','rb')}
+    print(files)
+    headers = {
+        'User-Agent':'Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/69.0.3497.100 Safari/537.36',
+        'Referer':'http://140.113.238.34:8000/',
+        'Cookie':'csrftoken='+csrf_value
+    }
+    res_post = requests.post(url,data=data,headers=headers,files=files)
+    print(res_post)
+    soup_post = BeautifulSoup(res_post.text,'html.parser')
+    outcome = soup_post.text
+    #print(outcome)
+    #bug_number = outcome
+    #print(bug_number)

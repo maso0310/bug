@@ -155,15 +155,15 @@ def handle_message(event):
             file_id = file.get('id')
             print(file_id)
             print ('File ID: %s' % file.get('id'))
-            '''
+            
             #此處進入worker的工作排程，讓worker去雲端抓圖片
 
             q = Queue(connection=conn)
-            from upload import post_image_to_url
+            from catch_google_img import get_img
 
-            result = q.enqueue(post_image_to_url,path,timeout=3600)
+            result = q.enqueue(get_img ,credentials,file_id,timeout=3600)
             print("工人延遲運行的結果ID:"+result.id)
-            '''
+            
             os.remove(path)
             line_bot_api.reply_message(event.reply_token,TextSendMessage(text='上傳成功，請等待運算結果'))
             '''
